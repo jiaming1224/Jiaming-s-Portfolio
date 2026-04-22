@@ -1,0 +1,18 @@
+# Original uncut video — too large for GitHub (122 MB)
+assets/showcase/kicking/Dog.m4v
+# Intermediate versions — replaced by Dog-3s.mp4
+assets/showcase/kicking/Dog-trimmed.mp4
+assets/showcase/kicking/Dog-3x.mp4
+
+# Large GIFs — replaced by compressed MP4 versions
+assets/showcase/cpg/sim_stepping_stone.gif
+assets/showcase/kicking/shooting-demo2.gif
+assets/showcase/navigation/实际运行视频(2).gif
+
+# Unused large MP4 (not referenced in site)
+assets/showcase/navigation/环境避障测试.mp4
+assets/showcase/navigation/环境避障测试-compressed.mp4
+
+# OS
+.DS_Store
+Thumbs.db

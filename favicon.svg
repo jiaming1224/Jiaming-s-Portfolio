@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-label="CJM favicon">
+  <defs>
+    <linearGradient id="cjmGradient" x1="8" y1="8" x2="56" y2="56" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#c77446" />
+      <stop offset="1" stop-color="#8c4a26" />
+    </linearGradient>
+  </defs>
+  <rect width="64" height="64" rx="18" fill="#13212c" />
+  <path d="M17 22.5C17 18.9101 19.9101 16 23.5 16H41V22H25C23.3431 22 22 23.3431 22 25V39C22 40.6569 23.3431 42 25 42H41V48H23.5C19.9101 48 17 45.0899 17 41.5V22.5Z" fill="#f7efe2" />
+  <path d="M29 18H35V41.25L47.5 28.5V36.5L35 49H29V18Z" fill="url(#cjmGradient)" />
+  <circle cx="46" cy="19" r="4" fill="#0f5b61" />
+</svg>

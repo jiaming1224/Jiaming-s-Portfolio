@@ -1,0 +1,948 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>私人厨艺管家 · MVP 核心流程 V3</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Ma+Shan+Zheng&family=Noto+Sans+SC:wght@400;500;700;900&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --brand-1: #ff6f3c;
+      --brand-2: #ff9a5a;
+      --ink-1: #1d2a36;
+      --ink-2: #506173;
+      --bg-1: #fff7ef;
+      --bg-2: #fff3e3;
+      --card: #fffcf8;
+      --line: rgba(29, 42, 54, 0.12);
+      --mint: #23b59d;
+      --mint-soft: #e6faf6;
+      --sky: #e9f4ff;
+      --lavender: #efeaff;
+      --peach: #ffeede;
+      --gold: #ffd66b;
+      --rose: #ffdfe4;
+      --hero-h: 126px;
+      --hero-h-cooking: 98px;
+      --phone-w: 385px;
+      --phone-h: 780px;
+      --radius-xl: 30px;
+      --radius-lg: 22px;
+      --radius-md: 16px;
+      --radius-sm: 12px;
+      --shadow-soft: 0 16px 34px rgba(22, 37, 53, 0.12);
+      --shadow-card: 0 8px 20px rgba(22, 37, 53, 0.09);
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      font-family: "Noto Sans SC", sans-serif;
+      color: var(--ink-1);
+      background:
+        radial-gradient(circle at 0% 0%, rgba(255, 154, 90, 0.22), transparent 26%),
+        radial-gradient(circle at 100% 0%, rgba(35, 181, 157, 0.17), transparent 24%),
+        radial-gradient(circle at 100% 100%, rgba(169, 134, 255, 0.14), transparent 25%),
+        linear-gradient(180deg, var(--bg-1), var(--bg-2));
+      min-height: 100vh;
+    }
+
+    .shell {
+      max-width: 1540px;
+      margin: 0 auto;
+      padding: 26px 16px 44px;
+    }
+
+    .header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 14px;
+      padding: 16px 18px;
+      border-radius: 20px;
+      background: rgba(255, 255, 255, 0.78);
+      border: 1px solid rgba(29, 42, 54, 0.1);
+      backdrop-filter: blur(8px);
+      box-shadow: var(--shadow-card);
+      margin-bottom: 20px;
+    }
+
+    .header h1 {
+      margin: 0;
+      font-family: "Ma Shan Zheng", cursive;
+      font-size: 34px;
+      letter-spacing: 1px;
+      color: #e85f2e;
+    }
+
+    .header p {
+      margin: 2px 0 0;
+      color: var(--ink-2);
+      font-size: 13px;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(280px, 1fr));
+      gap: 20px;
+    }
+
+    .screen-card {
+      background: linear-gradient(180deg, rgba(255,255,255,0.95), rgba(255,255,255,0.84));
+      border: 1px solid rgba(29, 42, 54, 0.1);
+      border-radius: 28px;
+      padding: 10px;
+      box-shadow: var(--shadow-soft);
+    }
+
+    .screen-title {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 10px 12px 8px;
+      font-size: 14px;
+      font-weight: 800;
+    }
+
+    .tag {
+      font-size: 11px;
+      font-weight: 800;
+      color: #e85f2e;
+      background: #fff0e6;
+      border-radius: 999px;
+      padding: 4px 10px;
+    }
+
+    .phone {
+      width: 100%;
+      max-width: var(--phone-w);
+      height: var(--phone-h);
+      margin: 0 auto;
+      border-radius: var(--radius-xl);
+      background: #151a21;
+      padding: 10px;
+      box-shadow: 0 14px 34px rgba(21, 26, 33, 0.28);
+    }
+
+    .phone-shell {
+      height: 100%;
+      overflow: hidden;
+      border-radius: 22px;
+      background: #fffdf9;
+      border: 1px solid rgba(29, 42, 54, 0.14);
+      position: relative;
+    }
+
+    .status {
+      height: 32px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 14px;
+      font-size: 12px;
+      color: var(--ink-2);
+      background: rgba(255,255,255,0.84);
+      border-bottom: 1px solid var(--line);
+    }
+
+    .page {
+      height: calc(100% - 32px);
+      overflow-y: auto;
+      padding: 12px;
+      background:
+        radial-gradient(circle at 100% 0%, rgba(255, 214, 107, 0.24), transparent 22%),
+        linear-gradient(180deg, #fffcf7, #fff7ee);
+    }
+
+    .hero {
+      min-height: var(--hero-h);
+      border-radius: 18px;
+      background: linear-gradient(135deg, var(--brand-1), var(--brand-2));
+      color: #fff;
+      padding: 12px 14px;
+      margin-bottom: 10px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero.cooking {
+      min-height: var(--hero-h-cooking);
+      padding: 10px 12px;
+    }
+
+    .hero::after {
+      content: "";
+      position: absolute;
+      width: 82px;
+      height: 82px;
+      right: -22px;
+      top: -26px;
+      border-radius: 50%;
+      background: rgba(255,255,255,0.16);
+    }
+
+    .hero h3 {
+      margin: 0 0 4px;
+      font-size: 16px;
+      line-height: 1.2;
+      font-weight: 900;
+      position: relative;
+      z-index: 1;
+    }
+
+    .hero p {
+      margin: 0;
+      font-size: 11px;
+      line-height: 1.5;
+      color: rgba(255,255,255,0.92);
+      position: relative;
+      z-index: 1;
+    }
+
+    .panel {
+      border-radius: 18px;
+      background: linear-gradient(180deg, #fffaf4, #fffdf9);
+      border: 1px solid var(--line);
+      box-shadow: var(--shadow-card);
+      margin-bottom: 10px;
+      overflow: hidden;
+    }
+
+    .panel .head {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 12px 14px 8px;
+      font-size: 14px;
+      font-weight: 800;
+    }
+
+    .panel .head svg {
+      width: 18px;
+      height: 18px;
+      color: var(--brand-1);
+      margin-right: 6px;
+      flex-shrink: 0;
+    }
+
+    .panel .head span {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .panel .body { padding: 0 14px 14px; }
+
+    .primary-input-panel {
+      position: relative;
+      background: linear-gradient(135deg, #fff9f4, #fffdf9);
+      border: 2px solid transparent;
+      background-image:
+        linear-gradient(135deg, #fff9f4, #fffdf9),
+        linear-gradient(135deg, #ff6f3c, #ffd66b);
+      background-origin: border-box;
+      background-clip: padding-box, border-box;
+      box-shadow: 0 0 0 1px rgba(255,111,60,0.08), 0 20px 40px rgba(255,111,60,0.15), inset 0 0 20px rgba(255,111,60,0.05);
+    }
+
+    .primary-input-panel::before {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 3px;
+      background: linear-gradient(90deg, transparent, #ff6f3c, #ffd66b, transparent);
+      border-radius: 18px 18px 0 0;
+      opacity: 0.6;
+    }
+
+    .primary-input-panel .head {
+      background: linear-gradient(90deg, rgba(255,111,60,0.04), rgba(255,214,107,0.04));
+      border-bottom: 1px solid rgba(255,111,60,0.12);
+      padding: 14px 14px 10px;
+      color: #ff6f3c;
+      font-weight: 900;
+      letter-spacing: 0.02em;
+    }
+
+    .input-box {
+      border: 1px solid rgba(255,111,60,0.2);
+      border-radius: 14px;
+      background: linear-gradient(180deg, #fffaf2, #fff4e7);
+      padding: 12px;
+      margin-bottom: 10px;
+    }
+
+    textarea {
+      width: 100%;
+      resize: none;
+      border: 0;
+      background: transparent;
+      min-height: 88px;
+      font: inherit;
+      color: var(--ink-1);
+      outline: none;
+      line-height: 1.65;
+    }
+
+    .upload-board {
+      border: 1px dashed rgba(29,42,54,0.25);
+      border-radius: 14px;
+      background: linear-gradient(180deg, #fffefb, #fff6ea);
+      padding: 10px;
+    }
+
+    .upload-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 8px;
+      margin-bottom: 8px;
+    }
+
+    .slot {
+      height: 64px;
+      border-radius: 12px;
+      border: 1px dashed rgba(255,111,60,0.35);
+      background: linear-gradient(180deg, #fff8f0, #fff3e8);
+      display: grid;
+      place-items: center;
+      color: #e56a3a;
+      font-size: 11px;
+      font-weight: 700;
+      text-align: center;
+      padding: 4px;
+    }
+
+    .slot.filled {
+      border-style: solid;
+      border-color: rgba(35,181,157,0.35);
+      background: linear-gradient(180deg, #eefaf7, #f6fffc);
+      color: #2d8d7d;
+    }
+
+    .chips { display: flex; flex-wrap: wrap; gap: 8px; }
+
+    .chip {
+      border-radius: 999px;
+      background: #fff0e6;
+      border: 1px solid rgba(255,111,60,0.18);
+      color: #e95d2a;
+      font-size: 11px;
+      font-weight: 800;
+      padding: 5px 10px;
+    }
+
+    .btn-row { display: flex; gap: 8px; margin-top: 10px; }
+
+    .btn {
+      min-height: 42px;
+      border-radius: 12px;
+      border: 1px solid rgba(29,42,54,0.12);
+      background: #fff;
+      font-size: 13px;
+      font-weight: 800;
+      padding: 10px 12px;
+      color: var(--ink-1);
+      flex: 1;
+    }
+
+    .btn.primary {
+      background: linear-gradient(135deg, var(--brand-1), var(--brand-2));
+      color: #fff;
+      border-color: transparent;
+    }
+
+    .btn.teal {
+      background: linear-gradient(135deg, #23b59d, #4bcdb8);
+      color: #fff;
+      border-color: transparent;
+    }
+
+    .step-list { display: grid; gap: 8px; }
+
+    .step {
+      padding: 10px;
+      border-radius: 12px;
+      border: 1px solid rgba(29,42,54,0.1);
+      background: linear-gradient(180deg, #fffdf8, #fff8ee);
+      font-size: 13px;
+      line-height: 1.65;
+    }
+
+    .ingredients {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 8px;
+    }
+
+    .ing {
+      padding: 10px;
+      border-radius: 12px;
+      border: 1px solid rgba(29,42,54,0.1);
+      background: #fff;
+    }
+
+    .ing.meat { background: linear-gradient(180deg, #fff1e8, #ffe8dd); border-color: rgba(255,111,60,0.2); }
+    .ing.sauce { background: linear-gradient(180deg, #eefdff, #def8fb); border-color: rgba(79,173,210,0.24); }
+    .ing.spice { background: linear-gradient(180deg, #f3efff, #ece5ff); border-color: rgba(125,95,225,0.24); }
+    .ing.side { background: linear-gradient(180deg, #f0fbef, #e7f7e4); border-color: rgba(70,165,90,0.24); }
+
+    .ing strong { display: block; font-size: 13px; margin-bottom: 3px; }
+    .ing span { font-size: 12px; font-weight: 800; color: #db5b2a; }
+
+    .focus-card {
+      border-radius: 18px;
+      background: linear-gradient(180deg, #fff, #fffaf4);
+      border: 1px solid rgba(255,111,60,0.18);
+      box-shadow: var(--shadow-card);
+      padding: 12px;
+      margin-bottom: 10px;
+    }
+
+    .focus-badge {
+      width: 44px;
+      height: 44px;
+      border-radius: 14px;
+      background: linear-gradient(135deg, var(--brand-1), var(--brand-2));
+      display: grid;
+      place-items: center;
+      color: #fff;
+      font-size: 20px;
+      font-weight: 900;
+      margin-bottom: 10px;
+    }
+
+    .focus-main {
+      margin: 0 0 10px;
+      font-size: 20px;
+      line-height: 1.4;
+      font-weight: 900;
+    }
+
+    .hint {
+      border-radius: 12px;
+      background: var(--mint-soft);
+      color: #2f7267;
+      padding: 9px 10px;
+      font-size: 12px;
+      line-height: 1.55;
+      margin-bottom: 10px;
+    }
+
+    .upcoming {
+      border-radius: 16px;
+      border: 1px solid rgba(29,42,54,0.1);
+      background: linear-gradient(180deg, #ffffff, #f8fbff);
+      padding: 10px;
+      margin-bottom: 10px;
+    }
+
+    .up-item {
+      border-radius: 10px;
+      background: linear-gradient(180deg, #eef6ff, #f6faff);
+      padding: 8px 10px;
+      font-size: 12px;
+      color: #4f6075;
+      margin-bottom: 7px;
+    }
+
+    .up-item:last-child { margin-bottom: 0; }
+
+    .timer-inline {
+      border-radius: 16px;
+      border: 1px solid rgba(255,111,60,0.2);
+      background: linear-gradient(180deg, #fff8f0, #fff2e4);
+      padding: 10px;
+      margin-bottom: 10px;
+    }
+
+    .timer-head {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 8px;
+      font-size: 13px;
+      font-weight: 800;
+    }
+
+    .timer-list { display: grid; gap: 8px; }
+
+    .timer {
+      border-radius: 12px;
+      border: 1px solid rgba(29,42,54,0.12);
+      background: #fff;
+      padding: 8px;
+      display: grid;
+      grid-template-columns: 1fr auto;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .timer strong { display: block; font-size: 12px; color: #5a6d82; }
+    .timer span {
+      font-size: 20px;
+      font-weight: 900;
+      color: #e55f2d;
+      font-variant-numeric: tabular-nums;
+      letter-spacing: 0.5px;
+    }
+
+    .timer-actions { display: flex; gap: 6px; }
+
+    .mini-btn {
+      border: 1px solid rgba(29,42,54,0.12);
+      background: #fff;
+      color: #46586b;
+      border-radius: 8px;
+      font-size: 11px;
+      font-weight: 700;
+      padding: 5px 8px;
+    }
+
+    .mini-btn.done {
+      background: linear-gradient(135deg, #23b59d, #4ccfb9);
+      color: #fff;
+      border-color: transparent;
+    }
+
+    .footer-ops {
+      position: sticky;
+      bottom: 0;
+      padding-top: 8px;
+      background: linear-gradient(180deg, rgba(255,247,238,0), rgba(255,247,238,1) 35%);
+    }
+
+    .photos {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 8px;
+    }
+
+    .photo {
+      aspect-ratio: 4 / 5;
+      border-radius: 12px;
+      border: 1px dashed rgba(29,42,54,0.2);
+      background: linear-gradient(180deg, #fff7ef, #fff1e4);
+      padding: 8px;
+      font-size: 11px;
+      color: #5f6f80;
+      display: grid;
+      place-items: center;
+      text-align: center;
+    }
+
+    .review {
+      border-radius: 16px;
+      border: 1px solid rgba(29,42,54,0.1);
+      background: #fff;
+      padding: 12px;
+      box-shadow: var(--shadow-card);
+      margin-bottom: 10px;
+    }
+
+    .review .summary {
+      border-radius: 12px;
+      background: linear-gradient(180deg, #fff5e8, #ffeee0);
+      color: #6b4a2e;
+      padding: 10px;
+      font-size: 13px;
+      line-height: 1.7;
+      margin-bottom: 10px;
+    }
+
+    .review ul {
+      margin: 0;
+      padding-left: 18px;
+      font-size: 12px;
+      line-height: 1.7;
+      color: #4e6173;
+    }
+
+    .patch {
+      margin-top: 10px;
+      border-radius: 12px;
+      background: linear-gradient(180deg, #efeaff, #e9e3ff);
+      color: #4e4785;
+      padding: 10px;
+      font-size: 12px;
+      line-height: 1.6;
+    }
+
+    @media (max-width: 1260px) {
+      .grid { grid-template-columns: repeat(2, minmax(280px, 1fr)); }
+    }
+
+    @media (max-width: 760px) {
+      .grid { grid-template-columns: 1fr; }
+      .phone { max-width: 100%; height: 720px; }
+      .upload-grid { grid-template-columns: repeat(3, 1fr); }
+    }
+  </style>
+</head>
+<body>
+  <div class="shell">
+    <header class="header">
+      <div>
+        <h1>私人厨艺管家 V3</h1>
+        <p>核心业务流程原型 · 统一风格 / 一行三列 / 响应式</p>
+      </div>
+    </header>
+
+    <main class="grid">
+      <section class="screen-card">
+        <div class="screen-title"><span>万能入口</span><span class="tag">多图上传</span></div>
+        <div class="phone"><div class="phone-shell">
+          <div class="status"><span>09:41</span><span>5G 95%</span></div>
+          <div class="page">
+            <div class="hero">
+              <h3>今天想做点什么？</h3>
+                <p style="font-size:15px;font-weight:600;color:rgba(255,255,255,0.96);line-height:1.6;display:flex;align-items:center;flex-wrap:wrap;gap:8px;">
+                <svg viewBox="0 0 24 24" fill="currentColor" style="width:18px;height:18px;flex-shrink:0;">
+                  <path d="M13 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V9z"/>
+                  <polyline points="13 2 13 9 20 9" style="stroke:currentColor;fill:none;stroke-width:2;"/>
+                </svg>
+                <span>文字描述</span>
+                <span style="opacity:0.6;">+</span>
+                <svg viewBox="0 0 24 24" fill="currentColor" style="width:18px;height:18px;flex-shrink:0;">
+                  <rect x="3" y="3" width="18" height="18" rx="2" ry="2" style="fill:none;stroke:currentColor;stroke-width:2;"/>
+                  <circle cx="8.5" cy="8.5" r="1.5" style="fill:currentColor;"/>
+                  <path d="M21 15l-5-5L5 21" style="stroke:currentColor;fill:none;stroke-width:2;"/>
+                </svg>
+                <span>图片补充</span>
+                <span style="opacity:0.6;">可以同时输入</span>
+              </p>
+              <p style="font-size:14px;color:rgba(255,255,255,0.96);font-weight:500;margin-top:8px;line-height:1.5;">系统会一起理解你的目标、人数和口味偏好。</p>
+            </div>
+
+            <div class="panel primary-input-panel">
+              <div class="head">
+                <span>
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/>
+                    <path d="M16 2v4M8 2v4M2 10h20"/>
+                    <circle cx="12" cy="16" r="2"/>
+                  </svg>
+                  输入需求
+                </span>
+              </div>
+              <div class="body">
+                <div class="input-box">
+                  <textarea placeholder="示例：想做两人份红烧肉，偏咸鲜、少甜，步骤尽量详细，提醒我并行计时。"></textarea>
+                </div>
+
+                <div class="upload-board">
+                  <div class="upload-grid">
+                    <div class="slot filled">食材图<br/>1</div>
+                    <div class="slot filled">菜谱图<br/>2</div>
+                    <div class="slot filled">参考图<br/>3</div>
+                    <div class="slot">+ 添加</div>
+                  </div>
+                  <div class="chips">
+                    <span class="chip">已选 3 张</span>
+                    <span class="chip">支持批量上传</span>
+                    <span class="chip">继续补图</span>
+                  </div>
+                </div>
+
+                <div class="btn-row">
+                  <button class="btn">清空</button>
+                  <button class="btn primary">开始生成菜谱</button>
+                </div>
+              </div>
+            </div>
+
+            <div class="panel">
+              <div class="head">
+                <span>
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
+                  </svg>
+                  热门菜谱
+                </span>
+              </div>
+              <div class="body">
+                <div class="chips">
+                  <span class="chip">红烧肉</span>
+                  <span class="chip">可乐鸡翅</span>
+                  <span class="chip">番茄牛腩</span>
+                  <span class="chip">酸辣土豆丝</span>
+                  <span class="chip">家常麻婆豆腐</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div></div>
+      </section>
+
+      <section class="screen-card">
+        <div class="screen-title"><span>AI 解析中</span><span class="tag">结构化处理</span></div>
+        <div class="phone"><div class="phone-shell">
+          <div class="status"><span>09:42</span><span>处理中</span></div>
+          <div class="page">
+            <div class="hero" style="background:linear-gradient(135deg,#ff7f52,#ffb15f);">
+              <h3>正在整合更稳妥做法</h3>
+              <p style="font-size:14px;color:rgba(255,255,255,0.96);font-weight:500;">多图与文本语义对齐中，已进入联网检索阶段，正在提取防踩坑建议与时间节点。</p>
+            </div>
+            <div class="panel">
+              <div class="head">
+                <span style="display:flex;align-items:center;gap:6px;">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width:16px;height:16px;color:#ff6f3c;">
+                    <circle cx="12" cy="12" r="10"/>
+                    <path d="M12 6v6l4 2"/>
+                  </svg>
+                  解析进度 72%
+                </span>
+              </div>
+              <div class="body step-list">
+                <div class="step">1. 提取人数与口味偏好：已完成（2 人份、少甜、咸鲜）</div>
+                <div class="step">2. 图片语义识别：已完成（3 张图合并理解）</div>
+                <div class="step">3. 搜索与规整：进行中（汇总高成功率家常做法）</div>
+                <div class="step">4. 结构化输出：等待中（步骤、克重、计时锚点）</div>
+              </div>
+            </div>
+            <div class="panel">
+              <div class="head">
+                <span style="display:flex;align-items:center;gap:6px;">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width:16px;height:16px;color:#ff6f3c;">
+                    <circle cx="12" cy="12" r="10"/>
+                    <path d="M12 16v-4m0-4v0.01"/>
+                  </svg>
+                  系统提示
+                </span>
+              </div>
+              <div class="body">
+                <div class="hint">预计 8 秒完成，生成结果会优先展示你当前厨房场景能直接执行的版本。</div>
+              </div>
+            </div>
+          </div>
+        </div></div>
+      </section>
+
+      <section class="screen-card">
+        <div class="screen-title"><span>菜谱详情</span><span class="tag">结果页</span></div>
+        <div class="phone"><div class="phone-shell">
+          <div class="status"><span>09:43</span><span>已生成</span></div>
+          <div class="page">
+            <div class="hero" style="background:linear-gradient(135deg,#ff7a67,#ffab84);">
+              <h3>经典红烧肉 · 两人份</h3>
+              <p style="font-size:14px;color:rgba(255,255,255,0.96);font-weight:500;">中等难度 · 准备 15 分钟 · 烹饪 60 分钟，已自动对齐你的偏好：少甜、偏咸鲜。</p>
+            </div>
+
+            <div class="panel">
+              <div class="head">
+                <span>
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M6 2h12a2 2 0 0 1 2 2v16a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2z"/>
+                    <path d="M12 9v6M9 12h6"/>
+                  </svg>
+                  食材清单
+                </span>
+              </div>
+              <div class="body">
+                <div class="ingredients">
+                  <div class="ing meat"><strong>五花肉</strong><span>500g（块状）</span></div>
+                  <div class="ing spice"><strong>冰糖</strong><span>25g（2 块）</span></div>
+                  <div class="ing sauce"><strong>生抽</strong><span>20ml（2 汤勺）</span></div>
+                  <div class="ing side"><strong>姜蒜葱</strong><span>一汤勺量</span></div>
+                  <div class="ing sauce"><strong>老抽</strong><span>8ml（1 茶勺）</span></div>
+                  <div class="ing spice"><strong>八角桂皮</strong><span>3 粒八角</span></div>
+                </div>
+              </div>
+            </div>
+
+            <div class="panel">
+              <div class="head">
+                <span>
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M9 11l3 3L22 4"/>
+                    <path d="M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0z"/>
+                  </svg>
+                  步骤预览
+                </span>
+              </div>
+              <div class="body step-list">
+                <div class="step">1. 冷水下锅焯水 3 分钟，撇净浮沫。</div>
+                <div class="step">2. 小火炒糖色，出现细泡后下肉翻炒。</div>
+                <div class="step">3. 加入生抽老抽和热水，转小火炖 45 分钟。</div>
+              </div>
+            </div>
+
+            <div class="btn-row">
+              <button class="btn">收藏</button>
+              <button class="btn primary">进入沉浸式烹饪</button>
+            </div>
+          </div>
+        </div></div>
+      </section>
+
+      <section class="screen-card">
+        <div class="screen-title"><span>沉浸式烹饪</span><span class="tag">主战场</span></div>
+        <div class="phone"><div class="phone-shell">
+          <div class="status"><span>09:50</span><span>步骤 2/6</span></div>
+          <div class="page">
+            <div class="hero cooking" style="background:linear-gradient(135deg,#ff6f3c,#ff9a5a);">
+              <h3>专注当前一步，计时器同步管理</h3>
+              <p style="font-size:14px;color:rgba(255,255,255,0.96);font-weight:500;">计时器已内嵌在当前页面，不跳转、不遮挡主流程，手忙时也能快速操作。</p>
+            </div>
+
+            <div class="focus-card">
+              <div class="focus-badge">2</div>
+              <p class="focus-main">小火炒糖色，看到均匀细泡后立刻下肉翻炒上色。</p>
+              <div class="hint">关键提醒：宁可颜色浅一点，也不要等到深褐色，避免发苦。</div>
+              <div class="btn-row">
+                <button class="btn">语音下一步</button>
+                <button class="btn teal">标记已完成</button>
+              </div>
+            </div>
+
+            <div class="upcoming">
+              <div style="font-size:13px;font-weight:800;margin-bottom:8px;display:flex;align-items:center;gap:6px;">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width:16px;height:16px;color:#ff6f3c;">
+                  <path d="M13 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V9z"/>
+                  <polyline points="13 2 13 9 20 9"/>
+                </svg>
+                后续 2-3 步预判
+              </div>
+              <div class="up-item">3. 并行烧热水备用，减少中断。</div>
+              <div class="up-item">4. 下调料和热水，转小火慢炖。</div>
+              <div class="up-item">5. 收汁前先试味，避免越收越咸。</div>
+            </div>
+
+            <div class="timer-inline">
+              <div class="timer-head">
+                <span style="display:flex;align-items:center;gap:6px;">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width:16px;height:16px;color:#ff6f3c;">
+                    <circle cx="12" cy="12" r="10"/>
+                    <polyline points="12 6 12 12 16 14"/>
+                  </svg>
+                  并行计时器
+                </span>
+                <button class="mini-btn">+ 新增</button>
+              </div>
+              <div class="timer-list">
+                <div class="timer">
+                  <div><strong>糖色观察</strong><span>00:42</span></div>
+                  <div class="timer-actions"><button class="mini-btn">暂停</button><button class="mini-btn done">完成</button></div>
+                </div>
+                <div class="timer">
+                  <div><strong>热水准备</strong><span>01:18</span></div>
+                  <div class="timer-actions"><button class="mini-btn">暂停</button><button class="mini-btn done">完成</button></div>
+                </div>
+              </div>
+            </div>
+
+            <div class="footer-ops">
+              <div class="btn-row">
+                <button class="btn">上一步</button>
+                <button class="btn primary">下一步</button>
+              </div>
+            </div>
+          </div>
+        </div></div>
+      </section>
+
+      <section class="screen-card">
+        <div class="screen-title"><span>成品上传</span><span class="tag">复盘入口</span></div>
+        <div class="phone"><div class="phone-shell">
+          <div class="status"><span>10:46</span><span>已完成</span></div>
+          <div class="page">
+            <div class="hero" style="background:linear-gradient(135deg,#ff7a67,#ffab84);">
+              <h3>记录本次成果</h3>
+              <p style="font-size:14px;color:rgba(255,255,255,0.96);font-weight:500;">支持一次上传多张成品图，系统会从色泽、火候、摆盘和口感线索做综合判断。</p>
+            </div>
+
+            <div class="panel">
+              <div class="head">
+                <span>
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <rect x="3" y="3" width="18" height="18" rx="2" ry="2"/>
+                    <circle cx="8.5" cy="8.5" r="1.5"/>
+                    <path d="M21 15l-5-5L5 21"/>
+                  </svg>
+                  上传成品图（可多选）
+                </span>
+              </div>
+              <div class="body">
+                <div class="photos">
+                  <div class="photo">正面图</div>
+                  <div class="photo">侧面图</div>
+                  <div class="photo">细节图</div>
+                </div>
+                <div class="btn-row"><button class="btn">继续加图</button><button class="btn primary">开始 AI 复盘</button></div>
+              </div>
+            </div>
+
+            <div class="panel">
+              <div class="head">
+                <span>
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M12 2v20M2 12h20"/>
+                    <circle cx="12" cy="12" r="10"/>
+                  </svg>
+                  口味对齐
+                </span>
+              </div>
+              <div class="body">
+                <div class="step" style="background:linear-gradient(180deg,#eef8ff,#f7fbff);">咸度：7 / 10</div>
+                <div class="step" style="background:linear-gradient(180deg,#fff6e7,#fffbf0);">甜度：5 / 10</div>
+                <div class="step" style="background:linear-gradient(180deg,#f1efff,#f8f6ff);">口感：8 / 10</div>
+              </div>
+            </div>
+
+            <div class="panel">
+              <div class="head">
+                <span>
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/>
+                    <circle cx="9" cy="10" r="1" fill="currentColor"/>
+                    <circle cx="12" cy="10" r="1" fill="currentColor"/>
+                    <circle cx="15" cy="10" r="1" fill="currentColor"/>
+                  </svg>
+                  本次评价（可选）
+                </span>
+              </div>
+              <div class="body">
+                <div class="input-box" style="min-height:88px;">
+                  <textarea placeholder="记录这次烹饪的心得：哪个步骤最容易出错、火候控制、调味建议等。你的反馈会帮助 AI 更准确地学习你的口味。" style="min-height:72px;"></textarea>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div></div>
+      </section>
+
+      <section class="screen-card">
+        <div class="screen-title"><span>AI 复盘报告</span><span class="tag">成长闭环</span></div>
+        <div class="phone"><div class="phone-shell">
+          <div class="status"><span>10:47</span><span>分析完成</span></div>
+          <div class="page">
+            <div class="hero">
+              <h3>本次完成度 78 分</h3>
+              <p style="font-size:14px;color:rgba(255,255,255,0.96);font-weight:500;">主流程执行正确，下一次重点放在收汁窗口，避免后段过火导致口感偏柴。</p>
+            </div>
+
+            <div class="review">
+              <div class="summary">整体色泽和调味方向已稳定。你已经掌握了焯水、上色和炖煮的主骨架，离稳定复现只差收汁节奏。</div>
+              <ul>
+                <li>优点：糖色和上色阶段控制较好，成品颜色统一。</li>
+                <li>改进：收汁结束点略晚，建议提前 40 秒关火。</li>
+                <li>建议：下次盐量减少 3g，保持“少甜咸鲜”目标。</li>
+              </ul>
+              <div class="patch">智能记忆补丁：已写入你的口味偏好，下次同菜系会自动应用。</div>
+            </div>
+
+            <div class="btn-row">
+              <button class="btn">返回首页</button>
+              <button class="btn teal">生成分享海报</button>
+            </div>
+          </div>
+        </div></div>
+      </section>
+    </main>
+  </div>
+</body>
+</html>

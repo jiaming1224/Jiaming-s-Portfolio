@@ -1,0 +1,507 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>陈嘉铭 | 机器人控制与 AI 作品集</title>
+    <meta
+      name="description"
+      content="陈嘉铭的机器人控制与 AI 作品集，展示量产控制算法、腿式机器人强化学习、移动机器人导航与多模态 AI 产品落地。"
+    />
+    <meta name="theme-color" content="#102029" />
+    <meta property="og:title" content="陈嘉铭 | 机器人控制与 AI 作品集" />
+    <meta
+      property="og:description"
+      content="禾赛控制算法工程师，UC Berkeley 机器人硕士，聚焦机器人控制、分层强化学习与 AI 产品落地。"
+    />
+    <meta property="og:type" content="website" />
+    <link rel="icon" type="image/svg+xml" href="./favicon.svg" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Noto+Serif+SC:wght@500;700;900&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="./styles.css" />
+  </head>
+  <body>
+    <div id="progress-bar" aria-hidden="true"></div>
+    <a class="skip-link" href="#main-content">跳到主要内容</a>
+
+    <div class="page-shell">
+      <div class="ambient ambient-left" aria-hidden="true"></div>
+      <div class="ambient ambient-right" aria-hidden="true"></div>
+
+      <header class="site-header">
+        <a class="brand" href="#top" aria-label="返回顶部">
+          <span class="brand-mark">CJM</span>
+          <span class="brand-text">Portfolio / Robotics / AI</span>
+        </a>
+
+        <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="site-nav">
+          菜单
+        </button>
+
+        <nav id="site-nav" class="site-nav" aria-label="主导航">
+          <a href="#about">能力</a>
+          <a href="#portfolio">项目</a>
+          <a href="#timeline">路径</a>
+          <a href="#courses">技术栈</a>
+          <a href="#contact">联系</a>
+        </nav>
+      </header>
+
+      <main id="main-content">
+        <section id="top" class="hero section-frame">
+          <div class="hero-copy reveal">
+            <div class="hero-identity">
+              <img class="hero-avatar" src="./assets/media/avatar.png" alt="陈嘉铭" />
+              <div>
+                <p class="eyebrow">Robotics Control · Legged Systems · AI Applications</p>
+                <p class="hero-tagline">陈嘉铭 · UC Berkeley MS · 禾赛科技</p>
+              </div>
+            </div>
+            <h1>机器人控制、<br />腿式机器人与多模态 AI</h1>
+            <p class="hero-text">
+              量产级控制算法工程师，UC Berkeley Hybrid Robotics Lab 研究员，多模态 AI 产品独立开发者。这个站点聚焦已经做成的项目、可验证的结果与关键技术细节。
+            </p>
+
+            <div class="hero-actions">
+              <a class="button button-primary" href="#portfolio">探索项目</a>
+              <a class="button button-secondary" href="#about">能力概览</a>
+              <a class="button button-ghost" href="#contact">联系我</a>
+            </div>
+
+            <div class="hero-badges" aria-label="核心能力标签">
+              <span>量产控制</span>
+              <span>电机系统</span>
+              <span>腿式机器人</span>
+              <span>分层强化学习</span>
+              <span>路径规划</span>
+              <span>多模态 AI</span>
+            </div>
+          </div>
+
+          <aside class="hero-panel reveal reveal-delay-1" aria-label="作品集摘要">
+            <div class="panel-label">Capability Snapshot</div>
+
+            <div class="brief-list">
+              <article class="brief-item">
+                <span class="brief-kicker">当前角色</span>
+                <strong>控制算法工程师</strong>
+                <p>负责量产级扫描器控制算法设计、验证闭环与可靠性问题收敛。</p>
+              </article>
+              <article class="brief-item">
+                <span class="brief-kicker">技术纵深</span>
+                <strong>控制 + 机器人 + AI</strong>
+                <p>覆盖电机与嵌入式控制、机器人感知决策，以及前后端与模型编排。</p>
+              </article>
+              <article class="brief-item">
+                <span class="brief-kicker">代表结果</span>
+                <strong>量产规模与实机验证并存</strong>
+                <p>产品实现百万台级量产，研究项目完成复杂任务与仿真到实机验证。</p>
+              </article>
+            </div>
+
+            <div class="metric-grid metric-grid-hero">
+              <article class="metric-card">
+                <span class="metric-value">100 万+</span>
+                <span class="metric-label">量产级产品规模</span>
+              </article>
+              <article class="metric-card">
+                <span class="metric-value">4 款</span>
+                <span class="metric-label">扫描器开发</span>
+              </article>
+              <article class="metric-card">
+                <span class="metric-value">0.01°</span>
+                <span class="metric-label">往复轨迹控制精度</span>
+              </article>
+              <article class="metric-card">
+                <span class="metric-value">240</span>
+                <span class="metric-label">AI 项目自动化测试</span>
+              </article>
+            </div>
+          </aside>
+        </section>
+
+        <section id="about" class="section-frame content-section">
+          <div class="section-heading reveal">
+            <p class="eyebrow">Capabilities</p>
+            <h2>量产控制、机器人研究与 AI 产品化，构成了我的三条主能力线。</h2>
+          </div>
+
+          <div class="about-layout">
+            <article class="about-card about-card-lead reveal">
+              <p class="about-lead">
+                从西安交通大学机械工程，到 UC Berkeley 机器人与自动化系统，再到禾赛的量产控制算法实践，我的工作始终围绕“让系统在真实世界稳定运行”展开。
+              </p>
+              <p>
+                这意味着我不只写算法，也会处理传感器、执行器、通信链路、验证流程与产品约束；既做过实验室里的腿式机器人任务，也做过面向百万台量产的控制系统。
+              </p>
+            </article>
+
+            <div class="story-grid">
+              <article class="story-card reveal reveal-delay-1">
+                <h3>量产控制系统</h3>
+                <p>扫描器控制建模、嵌入式实现、验证闭环与可靠性问题收敛。</p>
+              </article>
+              <article class="story-card reveal reveal-delay-2">
+                <h3>腿式机器人控制</h3>
+                <p>CPG、Bezier 参考轨迹、精确落脚、带球与初步 sim2real 验证。</p>
+              </article>
+              <article class="story-card reveal reveal-delay-2">
+                <h3>强化学习与感知</h3>
+                <p>分层 PPO、高度图规划、多摄像头感知、序列学习与环境自适应。</p>
+              </article>
+              <article class="story-card reveal reveal-delay-2">
+                <h3>AI 产品闭环</h3>
+                <p>从需求拆解、交互原型、前后端到多模态模型编排和自动化测试。</p>
+              </article>
+            </div>
+          </div>
+        </section>
+
+        <section id="portfolio" class="section-frame content-section portfolio-section">
+          <div class="section-heading reveal">
+            <p class="eyebrow">Selected Work</p>
+            <h2>四个代表项目，对应我在控制、机器人与 AI 应用上的核心能力。</h2>
+          </div>
+
+          <div class="portfolio-layout">
+            <article class="portfolio-card portfolio-card-wide portfolio-card-featured reveal">
+              <div class="portfolio-media">
+                <div class="app-journey-label">
+                  <span class="journey-flow-eyebrow">完整用户旅程 · 5 个核心页面</span>
+                </div>
+                <div class="app-journey-flow">
+                  <div class="app-screen-item">
+                    <div class="app-phone-frame">
+                      <img src="./assets/showcase/mobile/app-screen-1.png" alt="私人厨艺管家首页：菜谱搜索与每周推荐" loading="lazy" />
+                    </div>
+                    <span class="app-screen-label"><em>①</em> 首页发现</span>
+                  </div>
+                  <div class="app-flow-arrow" aria-hidden="true">→</div>
+                  <div class="app-screen-item">
+                    <div class="app-phone-frame">
+                      <img src="./assets/showcase/mobile/app-screen-2.png" alt="菜谱详情：AI 个性化食材清单与步骤预览" loading="lazy" />
+                    </div>
+                    <span class="app-screen-label"><em>②</em> 菜谱详情</span>
+                  </div>
+                  <div class="app-flow-arrow" aria-hidden="true">→</div>
+                  <div class="app-screen-item">
+                    <div class="app-phone-frame">
+                      <img src="./assets/showcase/mobile/app-screen-3.png" alt="沉浸式烹饪引导：步骤卡 + 同步计时器" loading="lazy" />
+                    </div>
+                    <span class="app-screen-label"><em>③</em> 沉浸烹饪</span>
+                  </div>
+                  <div class="app-flow-arrow" aria-hidden="true">→</div>
+                  <div class="app-screen-item">
+                    <div class="app-phone-frame">
+                      <img src="./assets/showcase/mobile/app-screen-4.png" alt="复盘报告：AI 完成度评分与成品图" loading="lazy" />
+                    </div>
+                    <span class="app-screen-label"><em>④</em> 复盘报告</span>
+                  </div>
+                  <div class="app-flow-arrow" aria-hidden="true">→</div>
+                  <div class="app-screen-item">
+                    <div class="app-phone-frame">
+                      <img src="./assets/showcase/mobile/app-screen-5.png" alt="一键生成分享海报并发送好友" loading="lazy" />
+                    </div>
+                    <span class="app-screen-label"><em>⑤</em> 一键分享</span>
+                  </div>
+                </div>
+              </div>
+
+              <div class="portfolio-body">
+                <div class="portfolio-topline">01 · 多模态 AI 产品</div>
+                <h3>AI 私人厨艺管家微信小程序</h3>
+                <p>
+                  一个由我独立推进的微信小程序项目，从产品结构、交互原型到后端架构与模型编排全部落地，并围绕真实使用流程做成了完整可演示版本。
+                </p>
+                <ul>
+                  <li>独立完成需求定义、原型设计、Taro / React 前端与 FastAPI / PostgreSQL 后端搭建。</li>
+                  <li>打通“输入菜名 / 食材 -> 结构化菜谱生成 -> 沉浸式烹饪引导 -> 成品复盘”的完整链路。</li>
+                  <li>完成 240 项自动化测试，并补齐限流、JWT 认证、缓存一致性与语音交互容错。</li>
+                </ul>
+                <div class="project-proof-strip" aria-label="页面流程证据">
+                  <span>食材输入</span>
+                  <span>菜谱生成</span>
+                  <span>沉浸式烹饪</span>
+                  <span>复盘报告</span>
+                </div>
+                <div class="project-tags" aria-label="项目技术标签">
+                  <span>Taro</span>
+                  <span>React</span>
+                  <span>FastAPI</span>
+                  <span>PostgreSQL</span>
+                  <span>DeepSeek</span>
+                  <span>GLM-4V</span>
+                </div>
+              </div>
+            </article>
+
+            <article class="portfolio-card reveal reveal-delay-1">
+              <div class="portfolio-media evidence-grid">
+                <figure class="media-card evidence-main">
+                  <img src="./assets/showcase/cpg/cpg-robot-stepping.gif" alt="腿式机器人精确落脚与踏石控制演示" loading="lazy" />
+                  <figcaption>实机踏石与精确落脚</figcaption>
+                </figure>
+                <figure class="media-card">
+                  <video autoplay loop muted playsinline src="./assets/showcase/cpg/sim_stepping_stone.mp4" aria-label="CPG 控制策略仿真踏石场景验证"></video>
+                  <figcaption>仿真踏石场景验证</figcaption>
+                </figure>
+                <figure class="media-card">
+                  <img src="./assets/showcase/cpg/cpg-mapping.gif" alt="腿式机器人高度图与环境映射可视化" loading="lazy" />
+                  <figcaption>高度图与感知链路</figcaption>
+                </figure>
+              </div>
+
+              <div class="portfolio-body">
+                <div class="portfolio-topline">02 · CPG 精确落脚控制</div>
+                <h3>腿式机器人精确落脚与分层控制框架</h3>
+                <p>
+                  在 UC Berkeley Hybrid Robotics Lab 参与通用精确落脚控制研究，目标是在复杂地形与多障碍场景中建立更通用的腿式机器人运动控制框架。
+                </p>
+                <ul>
+                  <li>基于 Bezier-Augmented CPG 生成参考步态，低层控制策略 50Hz，对接 1kHz 关节级 PD 控制。</li>
+                  <li>高层 Planner 10Hz 在高度图上规划落脚点，视觉编码采用 3-layer CNN + 3-layer MLP，训练算法为 PPO。</li>
+                  <li>任务覆盖踏石跨越（含仿真踏石策略验证）、障碍规避与初步 sim2real 验证，感知链路使用 RealSense T265 与 D435。</li>
+                </ul>
+                <div class="project-proof-strip" aria-label="CPG 项目关键词">
+                  <span>CPG</span>
+                  <span>Residual Bezier</span>
+                  <span>PPO</span>
+                  <span>Height Map</span>
+                  <span>Sim2Real</span>
+                </div>
+              </div>
+            </article>
+
+            <article class="portfolio-card reveal reveal-delay-2">
+              <div class="portfolio-media evidence-grid">
+                <figure class="media-card evidence-main">
+                  <video autoplay loop muted playsinline src="./assets/showcase/kicking/shooting-demo2.mp4" aria-label="腿式机器人强化学习精准踢球演示"></video>
+                  <figcaption>复杂地形下的精准踢球演示</figcaption>
+                </figure>
+                <figure class="media-card evidence-main media-card-video">
+                  <div class="dog-player-wrap">
+                    <video
+                      id="dog-video"
+                      src="./assets/showcase/kicking/Dog-3s.mp4"
+                      autoplay
+                      muted
+                      loop
+                      playsinline
+                      preload="auto"
+                      aria-label="实机四足机器人踢球完整演示视频"
+                    ></video>
+                    <div class="dog-controls">
+                      <button class="dog-playbtn" aria-label="播放/暂停">▶</button>
+                      <input class="dog-seek" type="range" min="0" max="1000" step="1" value="0" aria-label="进度条" />
+                      <span class="dog-time">0:00</span>
+                      <span class="dog-speed-badge">3×</span>
+                    </div>
+                  </div>
+                  <figcaption>实机完整踢球演示</figcaption>
+                </figure>
+              </div>
+
+              <div class="portfolio-body">
+                <div class="portfolio-topline">03 · 强化学习精准踢球</div>
+                <h3>腿式机器人地形自适应精准踢球</h3>
+                <p>
+                  围绕未知地形下的精准射门问题，构建稳健运动控制、踢球规划和多摄像头感知的完整技术链路。
+                </p>
+                <ul>
+                  <li>以连续三次射门的状态-动作-转移历史为输入，尝试在 2-3 次试射内适应陌生地形动态。</li>
+                  <li>使用 Transformer 进行离线序列学习，并通过 goal relabeling 与环境随机化扩展训练数据。</li>
+                  <li>通信侧使用 UDP 与 Ros_Bridge 打通 Python3、ROS 与感知执行链路，多摄像头负责足球检测与导航辅助。</li>
+                </ul>
+                <div class="project-proof-strip" aria-label="精准踢球项目关键词">
+                  <span>Transformer</span>
+                  <span>Offline RL</span>
+                  <span>Goal Relabeling</span>
+                  <span>UDP / ROS</span>
+                  <span>Multi-camera</span>
+                </div>
+              </div>
+            </article>
+
+            <article class="portfolio-card portfolio-card-wide reveal reveal-delay-2">
+              <div class="portfolio-media evidence-grid">
+                <figure class="media-card evidence-main">
+                  <video autoplay loop muted playsinline src="./assets/showcase/navigation/实际运行视频.mp4" aria-label="轮式机器人实际运行动态避障演示"></video>
+                  <figcaption>实际场地运行演示</figcaption>
+                </figure>
+              </div>
+
+              <div class="portfolio-body">
+                <div class="portfolio-topline">04 · 移动机器人导航</div>
+                <h3>轮式机器人路径规划与动态避障</h3>
+                <p>
+                  在西安交通大学机器人与智能系统研究所担任队长，围绕动态环境中的导航效率和避障稳定性完成整套系统设计。
+                </p>
+                <ul>
+                  <li>基于激光雷达进行动态障碍物规避，避障成功率提升 35%。</li>
+                  <li>结合 Relaxed A* 与 TEB 进行全局与局部规划，导航效率提升 25%。</li>
+                  <li>同步完成 SolidWorks 建模、ANSYS 应力分析与结构优化。</li>
+                </ul>
+                <div class="project-proof-strip" aria-label="导航项目关键词">
+                  <span>Lidar</span>
+                  <span>Relaxed A*</span>
+                  <span>TEB</span>
+                  <span>Dynamic Avoidance</span>
+                </div>
+              </div>
+            </article>
+          </div>
+        </section>
+
+        <section id="timeline" class="section-frame content-section">
+          <div class="section-heading reveal">
+            <p class="eyebrow">Timeline</p>
+            <h2>从竞赛、实验室到量产工程，这条时间轴对应了我的能力形成路径。</h2>
+          </div>
+
+          <div class="journey-list">
+            <article class="journey-item reveal">
+              <div class="journey-year">2023 - 至今</div>
+              <div class="journey-content">
+                <span class="journey-tag">产业阶段</span>
+                <h3>上海禾赛科技 · 控制算法工程师</h3>
+                <p>参与 4 款扫描器开发，其中 1 款已达百万台级量产；在有限算力平台上实现 0.01° 级控制精度，并累计处理数百项可靠性问题。</p>
+              </div>
+            </article>
+
+            <article class="journey-item reveal reveal-delay-1">
+              <div class="journey-year">2022 - 2023</div>
+              <div class="journey-content">
+                <span class="journey-tag">研究阶段</span>
+                <h3>UC Berkeley · CPG 精确落脚控制</h3>
+                <p>围绕复杂地形通行、踏石跨越与 sim2real，参与 CPG 参考轨迹、分层控制和高度图规划链路设计。</p>
+              </div>
+            </article>
+
+            <article class="journey-item reveal reveal-delay-1">
+              <div class="journey-year">2022 - 2023</div>
+              <div class="journey-content">
+                <span class="journey-tag">研究阶段</span>
+                <h3>UC Berkeley · 强化学习精准踢球</h3>
+                <p>围绕陌生地形下 2-3 次试射快速自适应，尝试用离线序列学习完成精准射门策略建模。</p>
+              </div>
+            </article>
+
+            <article class="journey-item reveal reveal-delay-2">
+              <div class="journey-year">2021 - 2022</div>
+              <div class="journey-content">
+                <span class="journey-tag">带队阶段</span>
+                <h3>西安交通大学 · 轮式机器人项目队长</h3>
+                <p>完成路径规划与动态避障系统，兼顾传感器接入、控制实现与机械结构设计，形成较强的项目拆解与组织能力。</p>
+              </div>
+            </article>
+
+            <article class="journey-item reveal reveal-delay-2">
+              <div class="journey-year">2019 - 2021</div>
+              <div class="journey-content">
+                <span class="journey-tag">竞赛积累</span>
+                <h3>机器人竞赛、国创项目与组织经历</h3>
+                <p>获得机器人格斗大赛一等奖、国家级大创一等奖等成果，也在这一阶段建立了对“带队做成事”的初步理解。</p>
+              </div>
+            </article>
+          </div>
+        </section>
+
+        <section id="courses" class="section-frame content-section">
+          <div class="section-heading reveal">
+            <p class="eyebrow">Capability Stack</p>
+            <h2>项目背后对应的是一套可复用的技术能力栈。</h2>
+          </div>
+
+          <div class="course-layout">
+            <div class="course-list reveal">
+              <article>
+                <h3>控制算法与电机系统</h3>
+                <p>建模、补偿、嵌入式实现、验证闭环与可靠性收敛。</p>
+              </article>
+              <article>
+                <h3>腿式机器人控制</h3>
+                <p>CPG、Bezier 轨迹、足端控制、带球与精确落脚任务。</p>
+              </article>
+              <article>
+                <h3>强化学习与序列决策</h3>
+                <p>PPO、分层策略、离线学习、环境随机化与 goal relabeling。</p>
+              </article>
+            </div>
+
+            <div class="course-list reveal reveal-delay-1">
+              <article>
+                <h3>移动机器人导航</h3>
+                <p>激光雷达感知、全局路径规划、局部轨迹优化与动态避障。</p>
+              </article>
+              <article>
+                <h3>多模态 AI 应用</h3>
+                <p>Prompt 设计、结构化输出、模型编排、接口封装与自动化测试。</p>
+              </article>
+              <article>
+                <h3>系统协同与交付</h3>
+                <p>从实验验证到量产导入，覆盖需求拆解、联调、问题定位与结果复盘。</p>
+              </article>
+            </div>
+          </div>
+        </section>
+
+        <section class="section-frame award-section">
+          <div class="section-heading reveal">
+            <p class="eyebrow">Awards</p>
+            <h2>竞赛、创新项目和组织经历，最终都转化成了项目推进能力。</h2>
+          </div>
+
+          <div class="award-grid reveal reveal-delay-1">
+            <article>
+              <span class="award-rank">一等奖</span>
+              <p>中国智能机器人格斗大赛（中国公开赛，前 5%）</p>
+            </article>
+            <article>
+              <span class="award-rank">一等奖</span>
+              <p>国家级大学生创新创业训练计划</p>
+            </article>
+            <article>
+              <span class="award-rank">二等奖</span>
+              <p>中国大学生智能机器人创意大赛（前 15%）</p>
+            </article>
+            <article>
+              <span class="award-rank">综合</span>
+              <p>校级优秀班干部、社会活动先进个人、法士特齿轮奖学金</p>
+            </article>
+          </div>
+        </section>
+
+        <section id="contact" class="section-frame contact-section reveal">
+          <div>
+            <p class="eyebrow">Contact</p>
+            <h2>想进一步了解项目细节、技术方案或完整材料，可以直接联系我。</h2>
+            <p class="contact-text">
+              如需更完整的项目文档或实验材料，可以直接邮件联系。
+            </p>
+            <div class="contact-actions">
+              <a class="button button-primary" href="mailto:1939859401@qq.com">发送邮件</a>
+              <a class="button button-secondary" href="#portfolio">查看项目</a>
+            </div>
+          </div>
+
+          <div class="contact-card">
+            <span class="panel-label">Direct Contact</span>
+            <a href="mailto:1939859401@qq.com">1939859401@qq.com</a>
+            <a href="tel:+8619145570063">+86 191 4557 0063</a>
+            <p>上海 / 线上沟通均可</p>
+          </div>
+        </section>
+      </main>
+
+      <footer class="site-footer">
+        <p>© <span id="current-year"></span> 陈嘉铭 · Robotics · Control · AI Portfolio</p>
+      </footer>
+    </div>
+
+    <script src="./script.js"></script>
+  </body>
+</html>
